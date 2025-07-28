@@ -8,51 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Modern glassmorphism design system */
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 27% 8%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 27% 8%;
+    --popover-foreground: 213 31% 91%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 263 70% 50%;
+    --primary-foreground: 213 31% 91%;
+    --primary-glow: 263 85% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 213 31% 91%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 25% 27%;
+    --muted-foreground: 218 11% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 263 70% 50%;
+    --accent-foreground: 213 31% 91%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 263 70% 50%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Glassmorphism specific colors */
+    --glass-bg: 220 27% 8% / 0.8;
+    --glass-border: 213 31% 91% / 0.1;
+    --glass-shadow: 220 27% 4% / 0.3;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(263 70% 50%) 0%, hsl(293 100% 60%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(220 27% 8%) 0%, hsl(215 25% 27%) 100%);
+    --gradient-bg: linear-gradient(135deg, hsl(224 71% 4%) 0%, hsl(220 27% 8%) 50%, hsl(263 70% 8%) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(263 70% 50% / 0.3);
+    --shadow-glass: 0 8px 32px hsl(220 27% 4% / 0.3);
+    --shadow-subtle: 0 2px 8px hsl(220 27% 4% / 0.1);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -100,6 +104,72 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+    background: var(--gradient-bg);
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg;
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card::before {
+    @apply absolute inset-0 rounded-2xl opacity-60;
+    content: '';
+    background: var(--gradient-secondary);
+    z-index: -1;
+  }
+
+  /* Hero gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Hover animations */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+    transform: translateY(0);
+  }
+
+  .hover-lift:hover {
+    @apply scale-105;
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-glow), var(--shadow-glass);
+  }
+
+  /* Button variants */
+  .btn-glass {
+    @apply relative px-6 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-lg text-foreground font-medium transition-all duration-300;
+  }
+
+  .btn-glass:hover {
+    @apply bg-white/20 scale-105;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-primary {
+    @apply relative px-6 py-3 rounded-xl font-medium text-primary-foreground transition-all duration-300 overflow-hidden;
+    background: var(--gradient-primary);
+  }
+
+  .btn-primary:hover {
+    @apply scale-105;
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Navigation styles */
+  .nav-glass {
+    @apply fixed top-0 w-full z-50 border-b border-white/10 bg-background/80 backdrop-blur-lg;
   }
 }
