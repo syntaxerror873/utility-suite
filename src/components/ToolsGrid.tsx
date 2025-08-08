@@ -7,7 +7,7 @@ import {
   QrCode,
   Coins,
   ImagePlus,
-  Box
+  Volume2
 } from 'lucide-react';
 import ToolCard from './ToolCard';
 
@@ -70,10 +70,10 @@ const ToolsGrid = () => {
       gradient: 'bg-gradient-to-br from-emerald-500 to-green-600'
     },
     {
-      title: '3D Model Converter',
-      description: 'Transform 2D images into interactive 3D models you can walk around and convert to QR codes.',
-      icon: Box,
-      href: '/tools/3d-converter',
+      title: 'PDF to Audio Converter',
+      description: 'Convert PDF documents to speech audio with adjustable playback speed and download options.',
+      icon: Volume2,
+      href: '/tools/pdf-to-audio',
       gradient: 'bg-gradient-to-br from-violet-500 to-purple-600'
     }
   ];

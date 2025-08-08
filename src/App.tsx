@@ -14,7 +14,7 @@ import ColorPalette from "./pages/tools/ColorPalette";
 import QRScanner from "./pages/tools/QRScanner";
 import CoinFlipper from "./pages/tools/CoinFlipper";
 import ImageToQR from "./pages/tools/ImageToQR";
-import ThreeDConverter from "./pages/tools/ThreeDConverter";
+import PDFToAudio from "./pages/tools/PDFToAudio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,7 +37,7 @@ const App = () => (
           <Route path="/tools/qr-scanner" element={<QRScanner />} />
           <Route path="/tools/coin-flipper" element={<CoinFlipper />} />
           <Route path="/tools/image-to-qr" element={<ImageToQR />} />
-          <Route path="/tools/3d-converter" element={<ThreeDConverter />} />
+          <Route path="/tools/pdf-to-audio" element={<PDFToAudio />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
