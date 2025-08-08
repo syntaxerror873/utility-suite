@@ -35,63 +35,36 @@ const BackgroundRemover = () => {
     ));
 
     try {
-      // Since this is a demo without actual API integration,
-      // we'll simulate the background removal process
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      const formData = new FormData();
+      formData.append('image_file', images[index].originalFile);
+      formData.append('size', 'auto');
+
+      const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': 'CWnk6etdmpL9c9MF5wn7DWXt',
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const processedUrl = URL.createObjectURL(blob);
       
-      // For demo purposes, we'll use a canvas to create a processed version
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
+      setImages(prev => prev.map((img, i) => 
+        i === index ? { ...img, processedUrl, isProcessing: false } : img
+      ));
       
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        
-        if (ctx) {
-          // Draw the original image
-          ctx.drawImage(img, 0, 0);
-          
-          // Add a simple demonstration effect (this would be replaced with actual AI processing)
-          ctx.globalCompositeOperation = 'destination-out';
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-          
-          // Create a simple demonstration of background removal
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const data = imageData.data;
-          
-          // Simple color-based background removal simulation
-          for (let i = 0; i < data.length; i += 4) {
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-            
-            // Remove pixels that are close to white (demo logic)
-            if (r > 200 && g > 200 && b > 200) {
-              data[i + 3] = 0; // Make transparent
-            }
-          }
-          
-          ctx.putImageData(imageData, 0, 0);
-        }
-        
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const processedUrl = URL.createObjectURL(blob);
-            setImages(prev => prev.map((img, i) => 
-              i === index ? { ...img, processedUrl, isProcessing: false } : img
-            ));
-            toast.success('Background removed successfully!');
-          }
-        }, 'image/png');
-      };
-      
-      img.src = images[index].originalUrl;
+      toast.success('Background removed successfully!');
     } catch (error) {
       setImages(prev => prev.map((img, i) => 
         i === index ? { ...img, isProcessing: false } : img
       ));
-      toast.error('Failed to remove background. This is a demo version.');
+      toast.error('Failed to remove background. Please try again.');
+      console.error('Background removal error:', error);
     }
   };
 
@@ -122,8 +95,8 @@ const BackgroundRemover = () => {
               Remove backgrounds from images with AI precision
             </p>
             <div className="mt-4 p-4 glass-card">
-              <p className="text-sm text-yellow-500">
-                ⚠️ Demo Version: This tool demonstrates the interface. For production use, integrate with a background removal API like remove.bg or similar services.
+              <p className="text-sm text-green-500">
+                ✅ Real API Integration: Uses remove.bg API for professional background removal
               </p>
             </div>
           </div>

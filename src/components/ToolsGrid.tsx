@@ -3,7 +3,11 @@ import {
   Minimize2, 
   Scissors, 
   CheckSquare, 
-  Palette 
+  Palette,
+  QrCode,
+  Coins,
+  ImagePlus,
+  Box
 } from 'lucide-react';
 import ToolCard from './ToolCard';
 
@@ -43,6 +47,34 @@ const ToolsGrid = () => {
       icon: Palette,
       href: '/tools/color-palette',
       gradient: 'bg-gradient-to-br from-purple-500 to-indigo-600'
+    },
+    {
+      title: 'QR Code Scanner',
+      description: 'Scan QR codes using your camera or upload images to decode QR codes instantly.',
+      icon: QrCode,
+      href: '/tools/qr-scanner',
+      gradient: 'bg-gradient-to-br from-cyan-500 to-blue-600'
+    },
+    {
+      title: 'Coin Flipper',
+      description: 'Unbiased coin flipping with 3 animation effects using cryptographically secure randomness.',
+      icon: Coins,
+      href: '/tools/coin-flipper',
+      gradient: 'bg-gradient-to-br from-yellow-500 to-orange-600'
+    },
+    {
+      title: 'Image to QR Code',
+      description: 'Convert any image into a QR code for easy sharing and storage. Perfect for digital portfolios.',
+      icon: ImagePlus,
+      href: '/tools/image-to-qr',
+      gradient: 'bg-gradient-to-br from-emerald-500 to-green-600'
+    },
+    {
+      title: '3D Model Converter',
+      description: 'Transform 2D images into interactive 3D models you can walk around and convert to QR codes.',
+      icon: Box,
+      href: '/tools/3d-converter',
+      gradient: 'bg-gradient-to-br from-violet-500 to-purple-600'
     }
   ];
 
@@ -60,7 +92,7 @@ const ToolsGrid = () => {
         </div>
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {tools.map((tool, index) => (
             <ToolCard
               key={index}

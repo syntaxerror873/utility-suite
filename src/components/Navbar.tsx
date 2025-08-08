@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, Settings, Home, Info, Mail } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,11 @@ const Navbar = () => {
             </div>
             <span className="text-xl font-bold gradient-text">TechToolbox</span>
           </Link>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden md:block flex-1 max-w-md mx-8">
+            <SearchBar />
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -62,6 +68,11 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 glass-card mt-2">
+              {/* Mobile Search */}
+              <div className="px-3 py-2">
+                <SearchBar onClose={() => setIsOpen(false)} />
+              </div>
+              
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (

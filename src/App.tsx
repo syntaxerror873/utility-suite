@@ -11,6 +11,10 @@ import ImageCompressor from "./pages/tools/ImageCompressor";
 import BackgroundRemover from "./pages/tools/BackgroundRemover";
 import TodoGenerator from "./pages/tools/TodoGenerator";
 import ColorPalette from "./pages/tools/ColorPalette";
+import QRScanner from "./pages/tools/QRScanner";
+import CoinFlipper from "./pages/tools/CoinFlipper";
+import ImageToQR from "./pages/tools/ImageToQR";
+import ThreeDConverter from "./pages/tools/ThreeDConverter";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +34,10 @@ const App = () => (
           <Route path="/tools/background-remover" element={<BackgroundRemover />} />
           <Route path="/tools/todo-generator" element={<TodoGenerator />} />
           <Route path="/tools/color-palette" element={<ColorPalette />} />
+          <Route path="/tools/qr-scanner" element={<QRScanner />} />
+          <Route path="/tools/coin-flipper" element={<CoinFlipper />} />
+          <Route path="/tools/image-to-qr" element={<ImageToQR />} />
+          <Route path="/tools/3d-converter" element={<ThreeDConverter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
