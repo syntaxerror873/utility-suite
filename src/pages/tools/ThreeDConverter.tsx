@@ -16,7 +16,7 @@ const Scene3D = ({ imageTexture }: { imageTexture: string | null }) => {
       
       {imageTexture ? (
         <Box args={[2, 2, 0.1]} position={[0, 0, 0]}>
-          <meshStandardMaterial attach="material" map={null} color="#8B5CF6" />
+          <meshStandardMaterial color="#8B5CF6" />
         </Box>
       ) : (
         <Text
