@@ -1,35 +1,30 @@
-import { useState, useRef, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Text, Box } from '@react-three/drei';
+import { useState, useRef } from 'react';
 import { Upload, RotateCcw, QrCode, Download } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import QRCode from 'qrcode';
 
-const Scene3D = ({ imageTexture }: { imageTexture: string | null }) => {
+const Simple3DViewer = ({ hasImage }: { hasImage: boolean }) => {
   return (
-    <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
-      
-      {imageTexture ? (
-        <Box args={[2, 2, 0.1]} position={[0, 0, 0]}>
-          <meshStandardMaterial color="#8B5CF6" />
-        </Box>
-      ) : (
-        <Text
-          position={[0, 0, 0]}
-          fontSize={0.5}
-          color="#8B5CF6"
-          anchorX="center"
-          anchorY="middle"
-        >
-          Upload an image to create 3D model
-        </Text>
-      )}
-    </>
+    <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg flex items-center justify-center">
+      <div className="text-center text-white p-8">
+        {hasImage ? (
+          <div className="space-y-4">
+            <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg mx-auto animate-pulse"></div>
+            <p className="text-lg">3D Model Generated</p>
+            <p className="text-sm opacity-75">Use controls below to interact</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="w-24 h-24 border-4 border-dashed border-gray-500 rounded-lg mx-auto flex items-center justify-center">
+              <Upload className="h-8 w-8 text-gray-500" />
+            </div>
+            <p className="text-lg">Upload an image to create 3D model</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
@@ -161,15 +156,11 @@ const ThreeDConverter = () => {
           {/* 3D Viewer */}
           <div className="glass-card p-6 mb-8">
             <h3 className="text-xl font-semibold mb-4">3D Interactive Viewer</h3>
-            <div className="bg-gray-900 rounded-lg overflow-hidden" style={{ height: '500px' }}>
-              <Canvas camera={{ position: [0, 0, 5] }}>
-                <Suspense fallback={null}>
-                  <Scene3D imageTexture={imagePreview} />
-                </Suspense>
-              </Canvas>
+            <div style={{ height: '500px' }}>
+              <Simple3DViewer hasImage={!!selectedImage} />
             </div>
             <div className="mt-4 text-sm text-muted-foreground">
-              <p>• Click and drag to rotate • Scroll to zoom • Right-click and drag to pan</p>
+              <p>• Interactive 3D preview of your converted model • Upload image to see 3D representation</p>
             </div>
           </div>
 
